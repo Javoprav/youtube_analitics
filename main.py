@@ -1,10 +1,10 @@
 import os
 import json
 from googleapiclient.discovery import build
-
+'''Импорты'''
 
 class Channel:
-    """Класс, экземпляры которого инициализируются id конкретного ютуб-канала."""
+    """Класс, экземпляры которого инициализируют id конкретного ютуб-канала."""
     def __init__(self, channel_id):
         """Инициализация"""
         self.channel_id = channel_id
@@ -14,6 +14,7 @@ class Channel:
         self.channel = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
 
     def print_info(self):
+        '''Выводит в консоль информацию о канале'''
         print(json.dumps(self.channel, indent=2, ensure_ascii=False))
 
 
