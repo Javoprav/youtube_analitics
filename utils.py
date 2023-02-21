@@ -11,7 +11,6 @@ class Channel:
     """Класс, экземпляры которого инициализируют id конкретного ютуб-канала."""
 
     def __init__(self, channel_id):
-
         """Инициализация"""
         self.__channel_id = channel_id
 
@@ -40,8 +39,8 @@ class Channel:
     def channel_id(self):
         return self.__channel_id
 
-    @classmethod
-    def get_service(cls):
+    @staticmethod
+    def get_service():
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
         return youtube
