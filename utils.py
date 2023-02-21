@@ -27,6 +27,7 @@ class Channel:
         self.video_count = json_load['items'][0]["statistics"]["videoCount"]
 
     def to_json(self, file):
+        """Запись в json-файл"""
         with open(file, "w", encoding="UTF-8") as f:
             json_channel = json.dumps(self.channel, indent=2, ensure_ascii=False)
             f.write(json_channel)
@@ -37,10 +38,12 @@ class Channel:
 
     @property
     def channel_id(self):
+        """Возврат id-канала"""
         return self.__channel_id
 
     @staticmethod
     def get_service():
+        """Возврат API-канала"""
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
         return youtube
