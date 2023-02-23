@@ -20,8 +20,10 @@ def test_channel_id():
     """Проверка получения id"""
     vdud = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
     assert print(vdud.channel_id) is None
+    assert vdud.channel_id == 'UCMCgOm8GZkHp8zJ6l7_hIuA'
 
 
-def get_service():
+def test_get_service():
     """Проверка возврата id"""
-    assert print(Channel.get_service()) == '<googleapiclient.discovery.Resource object at 0x000002B1E54F9750>'
+    vduda = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
+    assert vduda.get_service() == '<googleapiclient.discovery.Resource object at 0x00000209043A1150>'
