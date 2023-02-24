@@ -51,6 +51,11 @@ class Channel:
     def __str__(self):
         return f'{json_channel}'
 
-'''Реализуйте для класса Канал магический метод для вывода через print() информации о канале: `Youtube-канал: <название_канала>`
+    def __add__(self, other):
+        if isinstance(other, Channel):
+          return self.subscriberCount + other.subscriberCount
+        else:
+          raise ValueError('Не правильный формат')
 
+'''
 Реалузуйте возможность складывать два канала и сравнивать их на больше/меньше между собой. Сложение и сравнение идет по количеству подписчиков.'''
