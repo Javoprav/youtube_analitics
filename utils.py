@@ -47,3 +47,10 @@ class Channel:
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
         return youtube
+
+    def __str__(self):
+        return f'{json_channel}'
+
+'''Реализуйте для класса Канал магический метод для вывода через print() информации о канале: `Youtube-канал: <название_канала>`
+
+Реалузуйте возможность складывать два канала и сравнивать их на больше/меньше между собой. Сложение и сравнение идет по количеству подписчиков.'''
