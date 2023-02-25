@@ -47,3 +47,15 @@ class Channel:
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
         return youtube
+
+    def __str__(self):
+        return f'{json_channel}'
+
+    def __add__(self, other):
+        if isinstance(other, Channel):
+          return self.subscriberCount + other.subscriberCount
+        else:
+          raise ValueError('Не правильный формат')
+
+'''
+Реалузуйте возможность складывать два канала и сравнивать их на больше/меньше между собой. Сложение и сравнение идет по количеству подписчиков.'''
