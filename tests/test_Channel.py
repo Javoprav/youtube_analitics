@@ -25,5 +25,5 @@ def test_channel_id():
 
 def test_get_service():
     """Проверка возврата id"""
-    vduda = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
-    assert vduda.get_service() == '<googleapiclient.discovery.Resource object at 0x00000209043A1150>'
+    channel_2 = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
+    assert str(channel_2.get_service()) == str

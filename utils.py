@@ -49,13 +49,25 @@ class Channel:
         return youtube
 
     def __str__(self):
-        return f'{json_channel}'
+        """Вывод через информации о канале"""
+        return f'Youtube-канал: {self.title}'
 
-    def __add__(self, other):
+    def __add__(self, other) -> bool:
         if isinstance(other, Channel):
-          return self.subscriberCount + other.subscriberCount
+            return self.subscriberCount + other.subscriberCount
         else:
-          raise ValueError('Не правильный формат')
+            raise ValueError('Не правильный формат')
 
-'''
-Реалузуйте возможность складывать два канала и сравнивать их на больше/меньше между собой. Сложение и сравнение идет по количеству подписчиков.'''
+    def __lt__(self, other) -> bool:
+        if isinstance(other, Channel):
+            return self.subscriberCount > other.subscriberCount
+        else:
+            raise ValueError('Не правильный формат')
+
+    def __gt__(self, other) -> bool:
+        if isinstance(other, Channel):
+            return self.subscriberCount < other.subscriberCount
+        else:
+            raise ValueError('Не правильный формат')
+
+

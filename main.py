@@ -23,8 +23,20 @@ def main():
     # создать файл 'vdud.json' c данными по каналу
     vdud.to_json('vdud.json')
 
-    print(ch1)
+    print(vdud)
     # Youtube-канал: вДудь
+
+    red = Channel('UC1eFXmJNkjITxPFWTy6RsWg')
+    print(vdud.subscriberCount)
+    print(red.subscriberCount)
+    print(vdud > red)
+    # True
+
+    print(vdud < red)
+    # False
+
+    print(vdud + red)
+    # 13940000
 
 
 if __name__ == "__main__":
