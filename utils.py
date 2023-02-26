@@ -53,19 +53,21 @@ class Channel:
         return f'Youtube-канал: {self.title}'
 
     def __add__(self, other):
-        """ """
+        """Сложение кол-ва подписчиков"""
         if isinstance(other, Channel):
             return self.subscriberCount + other.subscriberCount
         else:
             raise ValueError('Не правильный формат')
 
     def __lt__(self, other) -> bool:
+        """Сравнение"""
         if isinstance(other, Channel):
             return self.subscriberCount > other.subscriberCount
         else:
             raise ValueError('Не правильный формат')
 
     def __gt__(self, other) -> bool:
+        """Сравнение"""
         if isinstance(other, Channel):
             return self.subscriberCount < other.subscriberCount
         else:
