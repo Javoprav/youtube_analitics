@@ -52,7 +52,8 @@ class Channel:
         """Вывод через информации о канале"""
         return f'Youtube-канал: {self.title}'
 
-    def __add__(self, other) -> bool:
+    def __add__(self, other):
+        """ """
         if isinstance(other, Channel):
             return self.subscriberCount + other.subscriberCount
         else:
