@@ -31,12 +31,11 @@ def main():
     print(red.subscriberCount)
     print(vdud > red)
     # True
-
     print(vdud < red)
     # False
-
     print(vdud + red)
     # 13940000
+
 
 
 if __name__ == "__main__":
