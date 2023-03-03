@@ -75,14 +75,40 @@ class Channel:
 
 
 class Video:
+    """Класс видео, инициализируется по ID"""
     def __init__(self, id_video):
         self.id_video = id_video
+        api_key: str = os.getenv('API_KEY')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        request = youtube.videos().list(part="snippet,statistics", id=id_video)
+        response = request.execute()
+        self.title = response['items'][0]['snippet']['title']
+        self.viewCount = response['items'][0]['statistics']['viewCount']
+        self.likeCount = response['items'][0]['statistics']['likeCount']
 
-    api_key: str = os.getenv('API_KEY')
-    youtube = build('youtube', 'v3', developerKey=api_key)
-    request = youtube.videos().list(part="snippet,statistics",id="9lO06Zxhu88")
-    response = request.execute()
-    pprint(response)
+    def __str__(self):
+        """Выводит название видео"""
+        return self.title
+
+
+class PLVideo(Video):
+    """Класс плейлиста видео, инициализируется по ID видео и айдишником плейлиста, в котором он находится."""
+    def __init__(self, id_video, playlist_id):
+        super().__init__(id_video)
+        self.id_plv = playlist_id
+        api_key: str = os.getenv('API_KEY')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        self.playlist_name = self.playlist['items'][0]['snippet']['title']
+        # self.playlist_name = self.playlist['items'][0]['snippet']['title']
 
 
 video1 = Video('9lO06Zxhu88')
+video1 = Video('9lO06Zxhu88')
+video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
+pprint(video2.playlist)
+print(video1)
+# Как устроена IT-столица мира / Russian Silicon Valley (English subs)
+print(video2)
+# Пушкин: наше все? (Литература)
+# шаблон: 'название_видео (название_плейлиста)'
