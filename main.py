@@ -36,6 +36,14 @@ def main():
     print(vdud + red)
     # 13940000
 
+    video1 = Video('9lO06Zxhu88')
+    video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
+    pprint(video2.playlist)
+    print(video1)
+    # Как устроена IT-столица мира / Russian Silicon Valley (English subs)
+    print(video2)
+    # Пушкин: наше все? (Литература)
+    # шаблон: 'название_видео (название_плейлиста)'
 
 if __name__ == "__main__":
     main()

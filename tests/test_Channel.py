@@ -39,7 +39,7 @@ def test___add__():
     """Проверка соединения"""
     channel_4 = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
     red_1 = Channel('UC1eFXmJNkjITxPFWTy6RsWg')
-    assert channel_4 + red_1 == '103000003690000'
+    assert channel_4 + red_1 == '103000003700000'
 
 
 def test___lt__():
@@ -56,3 +56,10 @@ def test___gt__():
     red_3 = Channel('UC1eFXmJNkjITxPFWTy6RsWg')
     assert channel_6.__gt__(red_3) is True
     assert red_3.__gt__(channel_6) is False
+
+
+def test_PLVideo():
+    """Проверка создания класса PLV"""
+    video3 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
+    assert video3.title == 'Пушкин: наше все?'
+    assert video3.__str__() == 'Пушкин: наше все?'
