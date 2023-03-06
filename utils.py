@@ -1,7 +1,9 @@
-import os
 import json
+import os
+import datetime
 from pprint import pprint
 
+import isodate as isodate
 from googleapiclient.discovery import build
 
 '''Импорты'''
@@ -76,6 +78,7 @@ class Channel:
 
 class Video:
     """Класс видео, инициализируется по ID"""
+
     def __init__(self, id_video):
         """Инициализация"""
         self.id_video = id_video
@@ -94,6 +97,7 @@ class Video:
 
 class PLVideo(Video):
     """Класс плейлиста видео, инициализируется по ID видео и айдишником плейлиста, в котором он находится."""
+
     def __init__(self, id_video, playlist_id):
         """Инициализация"""
         super().__init__(id_video)
@@ -104,3 +108,51 @@ class PLVideo(Video):
         self.playlist_name = self.playlist['items'][0]['snippet']['title']
 
 
+class PlayList:
+    def __init__(self, playlist_id):
+        self.id_plv = playlist_id
+        api_key: str = os.getenv('API_KEY')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        self.title = self.playlist['items'][0]['snippet']['title']
+        self.url = f'https://www.youtube.com/playlist?list={self.id_plv}'
+        self.playlist_videos = youtube.playlistItems().list(playlistId=playlist_id,
+                                                            part='contentDetails',
+                                                            maxResults=50,
+                                                            ).execute()
+
+    @property
+    def total_duration(self):
+        api_key: str = os.getenv('API_KEY')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        video_ids = [video['contentDetails']['videoId'] for video in self.playlist_videos['items']]
+        video_response = youtube.videos().list(part='contentDetails,statistics',
+                                               id=','.join(video_ids)
+                                               ).execute()
+        pprint(video_response)
+        total_duration = datetime.timedelta()
+
+        for video in video_response['items']:
+            iso_8601_duration = video['contentDetails']['duration']
+            duration = isodate.parse_duration(iso_8601_duration)
+            total_duration += duration
+
+        return total_duration
+
+
+pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
+print(pl.title)
+# Редакция. АнтиТревел
+print(pl.url)
+# pprint(pl.playlist_videos)
+# https://www.youtube.com/playlist?list=PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb
+duration = pl.total_duration
+print(duration)
+# 3:41:01
+print(type(duration))
+# <class 'datetime.timedelta'>
+print(duration.total_seconds())
+# 13261.0
+
+# pl.show_best_video()
+# https://youtu.be/9Bv2zltQKQA

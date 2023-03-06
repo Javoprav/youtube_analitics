@@ -29,3 +29,8 @@ rsa==4.9
 six==1.16.0
 uritemplate==4.1.1
 urllib3==1.26.14
+
+pip~=23.0
+wheel~=0.38.4
+setuptools~=66.0.0
+isodate~=0.6.1
