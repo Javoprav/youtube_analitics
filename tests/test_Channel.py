@@ -63,3 +63,11 @@ def test_PLVideo():
     video3 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
     assert video3.title == 'Пушкин: наше все?'
     assert video3.__str__() == 'Пушкин: наше все?'
+
+
+def test_PlayList():
+    pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
+    duration = pl.total_duration
+    assert pl.show_best_video() == 'https://youtu.be/9Bv2zltQKQA'
+    assert pl.title == 'Редакция. АнтиТревел'
+    assert duration == datetime.timedelta(seconds=13261)

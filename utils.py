@@ -16,9 +16,9 @@ class Channel:
         """Инициализация"""
         self.__channel_id = channel_id
 
-        api_key: str = os.getenv('API_KEY')
-        youtube = build('youtube', 'v3', developerKey=api_key)
-        self.channel = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
+        self.api_key: str = os.getenv('API_KEY')
+        self.youtube = build('youtube', 'v3', developerKey=self.api_key)
+        self.channel = self.youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
 
         json_channel = json.dumps(self.channel, indent=2, ensure_ascii=False)
         json_load = json.loads(json_channel)
@@ -76,15 +76,15 @@ class Channel:
             raise ValueError('Не правильный формат')
 
 
-class Video:
+class Video(Channel):
     """Класс видео, инициализируется по ID"""
 
     def __init__(self, id_video):
         """Инициализация"""
         self.id_video = id_video
         api_key: str = os.getenv('API_KEY')
-        youtube = build('youtube', 'v3', developerKey=api_key)
-        request = youtube.videos().list(part="snippet,statistics", id=id_video)
+        self.youtube = build('youtube', 'v3', developerKey=api_key)
+        request = self.youtube.videos().list(part="snippet,statistics", id=id_video)
         response = request.execute()
         self.title = response['items'][0]['snippet']['title']
         self.viewCount = response['items'][0]['statistics']['viewCount']
@@ -127,33 +127,18 @@ class PlayList:
         self.video_response = self.youtube.videos().list(part='contentDetails,statistics',
                                                id=','.join(video_ids)
                                                ).execute()
-        pprint(self.video_response)
         total_duration = datetime.timedelta()
-
         for video in self.video_response['items']:
             iso_8601_duration = video['contentDetails']['duration']
             duration = isodate.parse_duration(iso_8601_duration)
             total_duration += duration
-
         return total_duration
 
     def show_best_video(self):
-        pass
-
-
-pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
-print(pl.title)
-# Редакция. АнтиТревел
-print(pl.url)
-# pprint(pl.playlist_videos)
-# https://www.youtube.com/playlist?list=PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb
-duration = pl.total_duration
-print(duration)
-# 3:41:01
-print(type(duration))
-# <class 'datetime.timedelta'>
-print(duration.total_seconds())
-# 13261.0
-
-pl.show_best_video()
-# https://youtu.be/9Bv2zltQKQA
+        for video in self.video_response['items']:
+            count = 0
+            viewCount = int(video['statistics']['viewCount'])
+            if viewCount > count:
+                count = viewCount
+                id_video = video['id']
+        return f'https://youtu.be/{id_video}'

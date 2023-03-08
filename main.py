@@ -38,12 +38,26 @@ def main():
 
     video1 = Video('9lO06Zxhu88')
     video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
-    pprint(video2.playlist)
     print(video1)
     # Как устроена IT-столица мира / Russian Silicon Valley (English subs)
     print(video2)
     # Пушкин: наше все? (Литература)
     # шаблон: 'название_видео (название_плейлиста)'
+    pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
+    print(pl.title)
+    # Редакция. АнтиТревел
+    print(pl.url)
+    # https://www.youtube.com/playlist?list=PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb
+    duration = pl.total_duration
+    print(duration)
+    # 3:41:01
+    print(type(duration))
+    # <class 'datetime.timedelta'>
+    print(duration.total_seconds())
+    # 13261.0
+    print(pl.show_best_video())
+    # https://youtu.be/9Bv2zltQKQA
+
 
 if __name__ == "__main__":
     main()
