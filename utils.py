@@ -111,33 +111,34 @@ class PLVideo(Video):
 class PlayList:
     def __init__(self, playlist_id):
         self.id_plv = playlist_id
-        api_key: str = os.getenv('API_KEY')
-        youtube = build('youtube', 'v3', developerKey=api_key)
-        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        self.api_key: str = os.getenv('API_KEY')
+        self.youtube = build('youtube', 'v3', developerKey=self.api_key)
+        self.playlist = self.youtube.playlists().list(id=playlist_id, part='snippet').execute()
         self.title = self.playlist['items'][0]['snippet']['title']
         self.url = f'https://www.youtube.com/playlist?list={self.id_plv}'
-        self.playlist_videos = youtube.playlistItems().list(playlistId=playlist_id,
+        self.playlist_videos = self.youtube.playlistItems().list(playlistId=playlist_id,
                                                             part='contentDetails',
                                                             maxResults=50,
                                                             ).execute()
 
     @property
     def total_duration(self):
-        api_key: str = os.getenv('API_KEY')
-        youtube = build('youtube', 'v3', developerKey=api_key)
         video_ids = [video['contentDetails']['videoId'] for video in self.playlist_videos['items']]
-        video_response = youtube.videos().list(part='contentDetails,statistics',
+        self.video_response = self.youtube.videos().list(part='contentDetails,statistics',
                                                id=','.join(video_ids)
                                                ).execute()
-        pprint(video_response)
+        pprint(self.video_response)
         total_duration = datetime.timedelta()
 
-        for video in video_response['items']:
+        for video in self.video_response['items']:
             iso_8601_duration = video['contentDetails']['duration']
             duration = isodate.parse_duration(iso_8601_duration)
             total_duration += duration
 
         return total_duration
+
+    def show_best_video(self):
+        pass
 
 
 pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
@@ -154,5 +155,5 @@ print(type(duration))
 print(duration.total_seconds())
 # 13261.0
 
-# pl.show_best_video()
+pl.show_best_video()
 # https://youtu.be/9Bv2zltQKQA
