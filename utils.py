@@ -81,14 +81,22 @@ class Video(Channel):
 
     def __init__(self, id_video):
         """Инициализация"""
-        self.id_video = id_video
-        api_key: str = os.getenv('API_KEY')
-        self.youtube = build('youtube', 'v3', developerKey=api_key)
-        request = self.youtube.videos().list(part="snippet,statistics", id=id_video)
-        response = request.execute()
-        self.title = response['items'][0]['snippet']['title']
-        self.viewCount = response['items'][0]['statistics']['viewCount']
-        self.likeCount = response['items'][0]['statistics']['likeCount']
+        try:
+            self.id_video = id_video
+            if len(id_video) == 11:
+                api_key: str = os.getenv('API_KEY')
+                self.youtube = build('youtube', 'v3', developerKey=api_key)
+                request = self.youtube.videos().list(part="snippet,statistics", id=id_video)
+                response = request.execute()
+                self.title = response['items'][0]['snippet']['title']
+                self.viewCount = response['items'][0]['statistics']['viewCount']
+                self.likeCount = response['items'][0]['statistics']['likeCount']
+            else:
+                self.title = None
+                self.viewCount = None
+                self.likeCount = None
+        except IndexError:
+            pass
 
     def __str__(self):
         """Выводит название видео"""
@@ -142,3 +150,4 @@ class PlayList:
                 count = viewCount
                 id_video = video['id']
         return f'https://youtu.be/{id_video}'
+

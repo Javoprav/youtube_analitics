@@ -23,10 +23,10 @@ def test_channel_id():
     assert vdud.channel_id == 'UCMCgOm8GZkHp8zJ6l7_hIuA'
 
 
-'''def test_get_service(): ########## не проверяется
+def test_get_service(): ########## не проверяется
     """Проверка возврата id"""
     channel_2 = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
-    assert str(channel_2.get_service()) == str'''
+    assert print(channel_2.get_service()) is None
 
 
 def test___str__():
@@ -71,3 +71,11 @@ def test_PlayList():
     assert pl.show_best_video() == 'https://youtu.be/9Bv2zltQKQA'
     assert pl.title == 'Редакция. АнтиТревел'
     assert duration == datetime.timedelta(seconds=13261)
+
+
+def test_Video():
+    broken_video = Video('broken_video_id')
+    assert broken_video.title is None
+    assert broken_video.likeCount is None
+    video8 = Video('9lO06Zxhu88')
+    assert video8.title == 'Как устроена IT-столица мира / Russian Silicon Valley (English subs)'

@@ -1,6 +1,6 @@
 {
   "kind": "youtube#channelListResponse",
-  "etag": "8r76Y-5uvX4soxxb32073CD12Qo",
+  "etag": "mGsmSgptf-ISfF04x1FI7MmoIvY",
   "pageInfo": {
     "totalResults": 1,
     "resultsPerPage": 5
@@ -8,7 +8,7 @@
   "items": [
     {
       "kind": "youtube#channel",
-      "etag": "_PheT3ALhyhbU0U5g0D8-TJGgpY",
+      "etag": "BBG3Cv1ZHI6rqRnyeN6p2xtnXUc",
       "id": "UCMCgOm8GZkHp8zJ6l7_hIuA",
       "snippet": {
         "title": "вДудь",
@@ -38,7 +38,7 @@
         }
       },
       "statistics": {
-        "viewCount": "1962560667",
+        "viewCount": "1963132180",
         "subscriberCount": "10300000",
         "hiddenSubscriberCount": false,
         "videoCount": "165"

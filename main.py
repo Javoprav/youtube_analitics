@@ -58,6 +58,12 @@ def main():
     print(pl.show_best_video())
     # https://youtu.be/9Bv2zltQKQA
 
+    broken_video = Video('broken_video_id')
+    print(broken_video.title)
+    # None
+    print(broken_video.likeCount)
+    # None
+
 
 if __name__ == "__main__":
     main()
